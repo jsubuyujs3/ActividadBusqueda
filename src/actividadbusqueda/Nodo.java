@@ -1,44 +1,59 @@
-
 package actividadbusqueda;
 
+import java.util.ArrayList;
 
 public class Nodo {
+    private int x;
+    private int y;
+    private int costo;
+    private Nodo padre;
     
-    private short arriba;
-    private short abajo;
-    private short izquierda;
-    private short derecha;
-
-    public short getArriba() {
-        return arriba;
+    public Nodo(int x, int y, int costo, Nodo padre) {
+        this.x = x;
+        this.y = y;
+        this.costo = costo;
+        this.padre = padre;
     }
-
-    public void setArriba(short arriba) {
-        this.arriba = arriba;
+    
+    public int getX() {
+        return x;
     }
-
-    public short getAbajo() {
-        return abajo;
+    
+    public int getY() {
+        return y;
     }
-
-    public void setAbajo(short abajo) {
-        this.abajo = abajo;
+    
+    public int getCosto() {
+        return costo;
     }
-
-    public short getIzquierda() {
-        return izquierda;
+    
+    public Nodo getPadre() {
+        return padre;
     }
-
-    public void setIzquierda(short izquierda) {
-        this.izquierda = izquierda;
+    
+    public ArrayList<Nodo> getSucesores(Laberinto laberinto) {
+        ArrayList<Nodo> sucesores = new ArrayList<>();
+        
+        // Arriba
+        if (laberinto.getValor(x, y-1) != laberinto.OBSTACULO) {
+            sucesores.add(new Nodo(x, y-1, costo+1, this));
+        }
+        
+        // Abajo
+        if (laberinto.getValor(x, y+1) != laberinto.OBSTACULO) {
+            sucesores.add(new Nodo(x, y+1, costo+1, this));
+        }
+        
+        // Izquierda
+        if (laberinto.getValor(x-1, y) != laberinto.OBSTACULO) {
+            sucesores.add(new Nodo(x-1, y, costo+1, this));
+        }
+        
+        // Derecha
+        if (laberinto.getValor(x+1, y) != laberinto.OBSTACULO) {
+            sucesores.add(new Nodo(x+1, y, costo+1, this));
+        }
+        
+        return sucesores;
     }
-
-    public short getDerecha() {
-        return derecha;
-    }
-
-    public void setDerecha(short derecha) {
-        this.derecha = derecha;
-    }
-
 }
